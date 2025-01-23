@@ -13,15 +13,17 @@ app.get("/", function (req, res) {
 
 app.use("/public", express.static(path.join(__dirname, "/public")))
 
+app.use(function (req, res, next) {
+    console.log(`${req.method} ${req.path} - ${req.ip}`);
+    next();
+    
+})
 
 app.get("/json", function (req, res) {
 
     const style = process.env.MESSAGE_STYLE
     res.json({
         message: style === "uppercase" ? "Hello json".toUpperCase() : "Hello json",
-        
-
-
     })
 })
 
